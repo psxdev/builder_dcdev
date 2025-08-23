@@ -34,7 +34,7 @@ jobs:
         if: matrix.os[0] == 'ubuntu-latest'
         run: |
           sudo apt-get update 
-          sudo apt-get -y install libmpfr-dev libmpc-dev gettext libelf-dev build-essential libjpeg-dev libpng-dev cmake libisofs-dev meson ninja-build rake autopoint libgmp3-dev libreadline-dev libcurl4 libcurl4-openssl-dev libarchive-dev libgpgme-dev python3-env libz-dev 
+          sudo apt-get -y install libmpfr-dev libmpc-dev gettext libelf-dev build-essential libjpeg-dev libpng-dev cmake libisofs-dev meson ninja-build rake autopoint libgmp3-dev libreadline-dev libcurl4 libcurl4-openssl-dev libarchive-dev libgpgme-dev python3-venv libz-dev 
       - name: Install macport
         if: startsWith(matrix.os[0], 'macos')
         run: |
