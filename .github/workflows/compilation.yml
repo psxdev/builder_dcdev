@@ -42,17 +42,41 @@ jobs:
           source ./macports-ci install --remove-brew --version=2.11.5 --sync=rsync
           sudo port install autoconf automake libtool gsl gmp mpfr libmpc curl wget gettext texinfo libelf libjpeg-turbo libpng cmake meson texinfo bison flex gsed  md5sha1sum
       
-      - name: Runs all the stages in the shell macos
+      - name: Compile toolchain macos
         if: startsWith(matrix.os[0], 'macos')
         run: |
           export CPATH=/opt/local/include
           export LIBRARY_PATH=/opt/local/lib
-          ./build.sh
+          ./build_toolchain.sh
 
-      - name: Runs all the stages in the shell ubuntu
+      - name: Compile toolchain linux
         if: matrix.os[0] == 'ubuntu-latest'
         run: |
-          ./build.sh
+          ./build_toolchain.sh
+
+      - name: Compile sdk and tools macos
+        if: startsWith(matrix.os[0], 'macos')
+        run: |
+          export CPATH=/opt/local/include
+          export LIBRARY_PATH=/opt/local/lib
+          ./build_sdk.sh
+
+      - name: Compile sdk and tools linux
+        if: matrix.os[0] == 'ubuntu-latest'
+        run: |
+          ./build_sdk.sh
+
+      - name: Compile ports macos
+        if: startsWith(matrix.os[0], 'macos')
+        run: |
+          unset CPATH
+          unset LIBRARY_PATH
+          ./build_ports.sh
+
+      - name: Compile ports linux
+        if: matrix.os[0] == 'ubuntu-latest'
+        run: |
+          ./build_ports.sh
       
       - name: Get short SHA
         id: slug
