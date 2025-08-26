@@ -39,7 +39,7 @@ jobs:
         if: startsWith(matrix.os[0], 'macos')
         run: |
           curl -LO https://raw.githubusercontent.com/GiovanniBussi/macports-ci/master/macports-ci
-          source ./macports-ci install --remove-brew --version=2.11.5
+          source ./macports-ci install --remove-brew --version=2.11.5 --sync=rsync
           sudo port install autoconf automake libtool gsl gmp mpfr libmpc curl wget gettext texinfo libelf libjpeg-turbo libpng cmake meson texinfo bison flex gsed  md5sha1sum
       
       - name: Runs all the stages in the shell macos
