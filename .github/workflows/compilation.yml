@@ -43,7 +43,12 @@ jobs:
           sudo port install autoconf automake libtool gsl gmp mpfr libmpc curl wget gettext texinfo libelf libjpeg-turbo libpng cmake meson texinfo bison flex gsed  md5sha1sum
       
       - name: Runs all the stages in the shell
+        if: startsWith(matrix.os[0], 'macos')
         run: |
+          export CPATH=/opt/local/include
+          export LIBRARY_PATH=/opt/local/lib
+          ./build.sh
+        if: matrix.os[0] == 'ubuntu-latest'
           ./build.sh
       
       - name: Get short SHA
